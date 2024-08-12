@@ -1,22 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-export default function Home() {
+const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your hello</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.header}>Welcome to the Home Screen</Text>
+      <Button title="Log Out" onPress={() => {
+        // Handle logout logic
+        navigation.navigate('Login');
+      }} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
   },
 });
- 
 
+export default HomeScreen;
