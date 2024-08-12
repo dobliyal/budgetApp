@@ -1,22 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useSQLiteContext } from 'expo-sqlite/next'
+import * as React from 'react'
+import { View,Text } from 'react-native'
+import { Category,Transaction } from '../../Utils/Types/types'
 
-export default function Home() {
+
+const HomeScreen = () => {
+  const [categories, setCategories] = React.useState<Category[]>([]);
+  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+
+  // console.log('yo');
+  const db = useSQLiteContext();
+
+  React.useEffect(() => {
+    db.withTransactionAsync(async () => {
+      await getData();
+    });
+  }, [db]);
+
+  async function getData(){
+    const result=await db.getAllAsync('SELECT * FROM Transactions');
+    console.log(result);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your hello</Text>
-      <StatusBar style="auto" />
+    <View>
+     
+      <Text>Home screen hai ya ek theek hai  </Text>
     </View>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
- 
+export default HomeScreen
+
 
