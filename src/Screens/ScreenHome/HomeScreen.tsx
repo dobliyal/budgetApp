@@ -1,29 +1,34 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { useSQLiteContext } from 'expo-sqlite/next'
+import * as React from 'react'
+import { View,Text } from 'react-native'
+import { Category,Transaction } from '../../Utils/Types/types'
 
-const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+
+const HomeScreen = () => {
+  const [categories, setCategories] = React.useState<Category[]>([]);
+  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+
+  // console.log('yo');
+  const db = useSQLiteContext();
+
+  React.useEffect(() => {
+    db.withTransactionAsync(async () => {
+      await getData();
+    });
+  }, [db]);
+
+  async function getData(){
+    const result=await db.getAllAsync('SELECT * FROM Transactions');
+    console.log(result);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Welcome to the Home Screen</Text>
-      <Button title="Log Out" onPress={() => {
-        // Handle logout logic
-        navigation.navigate('Login');
-      }} />
+    <View>
+     
+      <Text>Home screen hai ya ek theek hai  </Text>
     </View>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 24,
-  },
-});
+export default HomeScreen
 
-export default HomeScreen;
