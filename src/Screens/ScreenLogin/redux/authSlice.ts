@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../../Firebase/firebase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeUserToken, clearUserToken } from '../../../Firebase/token';
 
 interface User {
   uid: string;
@@ -38,28 +38,19 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.user = null;
-      AsyncStorage.removeItem('token'); // Clear token on logout
+      clearUserToken(); // Clear token on logout
     },
   },
 });
 
 export const { setUser, setError, setLoading, logout } = authSlice.actions;
 
-const storeUser = async (user: FirebaseUser) => {
-  try {
-    const token = await user.getIdToken();
-    await AsyncStorage.setItem('token', token);
-  } catch (error) {
-    console.error('Failed to store token', error);
-  }
-};
-
 export const registerUser = (name: string, email: string, password: string) => async (dispatch: any) => {
   dispatch(setLoading(true));
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser!, { displayName: name });
-    await storeUser(userCredential.user);
+    await storeUserToken(userCredential.user);
 
     const user: User = {
       uid: userCredential.user.uid,
@@ -77,7 +68,7 @@ export const loginUser = (email: string, password: string) => async (dispatch: a
   dispatch(setLoading(true));
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    await storeUser(userCredential.user);
+    await storeUserToken(userCredential.user);
 
     const user: User = {
       uid: userCredential.user.uid,
