@@ -21,7 +21,7 @@ const Navigation = () => {
   </View>
     }
    >
-    <SQLiteProvider databaseName="mySQLite.db" useSuspense>
+    <SQLiteProvider databaseName="mySQLiteDB.db" useSuspense>
      <Stack.Navigator>
       <Stack.Screen name="Home" component={Home}
      options={{

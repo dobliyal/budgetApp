@@ -17,3 +17,7 @@ export interface TransactionsByMonth {
   totalExpenses: number;
   totalIncome: number;
 }
+export interface TransactionListItemProps {
+  transaction: Transaction;
+  categoryInfo: Category | undefined;
+}
