@@ -1,45 +1,41 @@
 export const categoryColors: { [key: string]: string } = {
-    Groceries: "#FFD700", // Gold
-    Rent: "#FF6347", // Tomato
-    Salary: "#32CD32", // LimeGreen
-    Freelancing: "#6495ED", // CornflowerBlue
-    Utilities: "#00CED1", // DarkTurquoise
-    Electronics: "#8A2BE2", // BlueViolet
-    "Dining Out": "#FFA07A", // LightSalmon
-    "Breakfast Supplies": "#FFDEAD", // NavajoWhite
-    "Household Items": "#F0E68C", // Khaki
-    "Christmas Gifts": "#FF69B4", // HotPink
-    "New Year Party Supplies": "#DB7093", // PaleVioletRed
-    "Thanksgiving Groceries": "#CD853F", // Peru
-    Bonus: "#6B8E23", // OliveDrab
-    "Consulting Work": "#4682B4", // SteelBlue
-    "Part-Time Job": "#DAA520", // GoldenRod
-    "Online Sales": "#20B2AA", // LightSeaGreen
-    "Freelance Writing": "#778899", // LightSlateGray
-    "End of Year Bonus": "#5F9EA0", // CadetBlue
-    "Thanksgiving Freelance": "#BDB76B", // DarkKhaki
-    Default: "#D3D3D3", // LightGray
-  };
-  
-  export const categoryEmojies: { [key: string]: string } = {
-    Groceries: "🛒",
-    Rent: "🏠",
-    Salary: "💰",
-    Freelancing: "👨🏻‍💻",
-    Utilities: "💡",
-    Electronics: "🖥️",
-    "Dining Out": "🍽️",
-    "Breakfast Supplies": "🥐",
-    "Household Items": "🏡",
-    "Christmas Gifts": "🎁",
-    "New Year Party Supplies": "🎉",
-    "Thanksgiving Groceries": "🦃",
-    Bonus: "🎊",
-    "Consulting Work": "💼",
-    "Part-Time Job": "⌚",
-    "Online Sales": "🛒",
-    "Freelance Writing": "✍️",
-    "End of Year Bonus": "🍾",
-    "Thanksgiving Freelance": "🍂",
-    Default: "🫰🏼",
-  };
+  "Medical Expenses": "#FF6347", // Tomato
+  Transportation: "#4682B4", // SteelBlue
+  Entertainment: "#FFD700", // Gold
+  Gifts: "#FF69B4", // HotPink
+  Education: "#32CD32", // LimeGreen
+  Travel: "#8A2BE2", // BlueViolet
+  "Rent/Mortgage": "#FF4500", // OrangeRed
+  "Utilities - Water": "#00CED1", // DarkTurquoise
+  "Utilities - Electricity": "#FFA500", // Orange
+  Salary: "#6B8E23", // OliveDrab
+  "Business Income": "#DAA520", // GoldenRod
+  "Freelance Work": "#6495ED", // CornflowerBlue
+  "Festival Bonuses": "#DB7093", // PaleVioletRed
+  "Gifts Received": "#FFDEAD", // NavajoWhite
+  "Rental Income": "#8B4513", // SaddleBrown
+  "Stock Dividends": "#20B2AA", // LightSeaGreen
+  Royalties: "#778899", // LightSlateGray
+  Default: "#D3D3D3", // LightGray
+};
+
+export const categoryEmojies: { [key: string]: string } = {
+  "Medical Expenses": "💉",
+  Transportation: "🚗",
+  Entertainment: "🎉",
+  Gifts: "🎁",
+  Education: "📚",
+  Travel: "✈️",
+  "Rent/Mortgage": "🏠",
+  "Utilities - Water": "💧",
+  "Utilities - Electricity": "💡",
+  Salary: "💰",
+  "Business Income": "📈",
+  "Freelance Work": "💻",
+  "Festival Bonuses": "🎊",
+  "Gifts Received": "🎁",
+  "Rental Income": "🏘️",
+  "Stock Dividends": "📊",
+  Royalties: "👑",
+  Default: "🫰🏼",
+};

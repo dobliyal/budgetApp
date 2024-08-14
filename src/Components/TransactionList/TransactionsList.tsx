@@ -1,7 +1,8 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import { Category, Transaction } from "../Utils/Types/types";
-import TransactionListItem from "./TransactionListItem/TransactionListItem";
+import { Category, Transaction } from "../../Utils/Types/types";
+import TransactionListItem from "../TransactionListItem/TransactionListItem";
+import { styles } from "./styleTransactionList";
 
 const TransactionsList = ({
   transactions,
@@ -13,7 +14,7 @@ const TransactionsList = ({
   deleteTransaction: (id: number) => Promise<void>;
 }) => {
   return (
-    <View>
+    <View style={styles.container}>
       {transactions.map((transaction) => {
         const categoryForCurrentItem = categories.find(
           (category) => category.id === transaction.category_id
