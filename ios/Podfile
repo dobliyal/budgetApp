@@ -11,6 +11,9 @@ platform :ios, podfile_properties['ios.deploymentTarget'] || '13.4'
 install! 'cocoapods',
   :deterministic_uuids => false
 
+# Enable modular headers globally
+use_modular_headers!
+
 prepare_react_native_project!
 
 target 'NativeFinalProject' do
