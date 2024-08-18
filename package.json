@@ -21,6 +21,7 @@
     "expo": "~51.0.26",
     "expo-asset": "~10.0.10",
     "expo-blur": "^13.0.2",
+    "expo-camera": "~15.0.14",
     "expo-file-system": "~17.0.1",
     "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",

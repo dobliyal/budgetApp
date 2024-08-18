@@ -1,5 +1,5 @@
 //redux
-import React from 'react'
+import React,{useState} from 'react'
 import { TouchableOpacity, View,Button, Text, TextInput} from 'react-native'
 import { Transaction } from '../../Utils/Types/types';
 import { useSQLiteContext } from "expo-sqlite/next";
@@ -7,21 +7,26 @@ import { Category } from '../../Utils/Types/types';
 import { MaterialIcons } from "@expo/vector-icons";
 import Card from '../commonCard/Card';
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 
 const AddTransaction = ({
     insertTransaction,
   }: {
     insertTransaction(transaction: Transaction): Promise<void>;
   }) => {
-    const [isAddingTransaction, setIsAddingTransaction] =
-    React.useState<boolean>(false);
-  const [currentTab, setCurrentTab] = React.useState<number>(0);
-  const [categories, setCategories] = React.useState<Category[]>([]);
-  const [typeSelected, setTypeSelected] = React.useState<string>("");
-  const [amount, setAmount] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
-  const [category, setCategory] = React.useState<string>("Expense");
-  const [categoryId, setCategoryId] = React.useState<number>(1);
+    const [isAddingTransaction, setIsAddingTransaction] = useState<boolean>(false);
+    const [currentTab, setCurrentTab] = useState<number>(0);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [typeSelected, setTypeSelected] = useState<string>("");
+    const [amount, setAmount] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [category, setCategory] = useState<string>("Expense");
+    const [categoryId, setCategoryId] = useState<number>(1);
+    const [isScannerActive, setIsScannerActive] = useState<boolean>(false);
+    const [facing, setFacing] = useState<CameraType>('back');
+    const [permission, requestPermission] = useCameraPermissions();
+
+
   const db = useSQLiteContext();
 
 
@@ -67,16 +72,75 @@ const AddTransaction = ({
     setIsAddingTransaction(false);
   }
 
+interface qrObj {
+    idQR: number;
+    typeQR:  string;
+    categoryQR: string;
+    descriptionQR: string;
+    amountQR: number;
+    urlQR: string;
+}
+const handleBarcodeScanned=({data}:{data:string})=>{
+    const parsedData: qrObj = JSON.parse(data);
+    //console.log(parsedData);
+    const amountQR=parsedData.amountQR;
+    setAmount(amountQR.toString());
+
+    const descriptionQR=parsedData.descriptionQR;
+    setDescription(descriptionQR);
+    
+    
+     setTypeSelected(parsedData.categoryQR);
+    // setCategoryId(3);
+    let typeOfQr=parsedData.typeQR=='Expense'?0:1;
+    setCurrentTab(typeOfQr);
+
+    setIsScannerActive(false);
+};
+
+if(!permission){
+    return <View/>
+}
+if(!permission.granted){
+    return(
+        <View>
+        <Text>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="Grant Permission" />
+      </View>
+    )
+}
+
 
   return (
     <View style={{ marginBottom: 15 }}>
-    {isAddingTransaction ? (
+    {isScannerActive ? (
+  <View style={{ flex: 1 }}>
+    <CameraView
+      style={{ flex: 1 }}
+      facing={facing}
+      onBarcodeScanned={handleBarcodeScanned}
+      barcodeScannerSettings={{
+        barcodeTypes: ["qr"],
+      }}
+    >
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          onPress={() => setIsScannerActive(false)}
+          style={{ padding: 100}}
+        >
+          <Text style={{ color: 'white',top:80,left:80}}>Cancel</Text>
+        </TouchableOpacity>
+      </View>
+    </CameraView>
+  </View>
+): (isAddingTransaction ? (
       <View>
         <Card>
           <TextInput
             placeholder="$Amount"
             style={{ fontSize: 32, marginBottom: 15, fontWeight: "bold" }}
             keyboardType="numeric"
+            value={amount}
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9.]/g, "");
               setAmount(numericValue);
@@ -85,6 +149,7 @@ const AddTransaction = ({
           <TextInput
             placeholder="Description"
             style={{ marginBottom: 15 }}
+            value={description}
             onChangeText={setDescription}
           />
           <Text style={{ marginBottom: 6 }}>Select a entry type</Text>
@@ -99,7 +164,6 @@ const AddTransaction = ({
           {categories.map((cat) => (
             <CategoryButton
               key={cat.name}
-              // @ts-ignore
               id={cat.id}
               title={cat.name}
               isSelected={typeSelected === cat.name}
@@ -107,6 +171,16 @@ const AddTransaction = ({
               setCategoryId={setCategoryId}
             />
           ))}
+          <TouchableOpacity
+          onPress={()=>setIsScannerActive(true)}
+          style={{ marginVertical: 20,
+            padding: 10,
+            backgroundColor: '#007BFF',
+            borderRadius: 5,
+          }}
+          >
+            <Text style={{color:'white', textAlign:'center'}}>Scan Barcode</Text>
+          </TouchableOpacity>
         </Card>
         <View
           style={{ flexDirection: "row", justifyContent: "space-around" }}
@@ -114,13 +188,16 @@ const AddTransaction = ({
           <Button
             title="Cancel"
             color="red"
-            onPress={() => setIsAddingTransaction(false)}
+            onPress={() => {
+                setIsAddingTransaction(false); 
+                setAmount("");}}
           />
           <Button title="Save" onPress={handleSave} />
         </View>
       </View>
     ) : (
       <AddButton setIsAddingTransaction={setIsAddingTransaction} />
+    )
     )}
   </View>
   );

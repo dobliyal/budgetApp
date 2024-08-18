@@ -85,7 +85,7 @@ const Payment = () => {
                 textAlign: "center",
               }}
             >
-              Get premium +
+              Get premium
             </Text>
           </TouchableOpacity>
 
