@@ -1,15 +1,21 @@
 import { useSQLiteContext } from 'expo-sqlite/next'
 import * as React from 'react'
-import { View,Text, ScrollView, TextStyle } from 'react-native'
+import { View,Text, ScrollView, TextStyle, Button } from 'react-native'
 import { Category,Transaction } from '../../Utils/Types/types'
 import { styles } from './HomeScreenStyle'
 import TransactionsList from '../../Components/TransactionList/TransactionsList'
 import { TransactionsByMonth } from '../../Utils/Types/types'
 import Card from '../../Components/commonCard/Card'
 import AddTransaction from '../../Components/addTransaction/addTransaction'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
+type StackParamsList = {
+  Payment:{savings: number},
+}
 
 const HomeScreen = () => {
+  const navigation=useNavigation<NativeStackNavigationProp<StackParamsList>>();
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [transactionsByMonth, setTransactionsByMonth] =
@@ -85,6 +91,11 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.mainContainer}>
+     <Button title="Payment"
+        onPress={()=>navigation.navigate("Payment",{
+          savings: transactionsByMonth.totalIncome-transactionsByMonth.totalExpenses,
+        })}
+       />
       <AddTransaction insertTransaction={insertTransaction}/>
       <TransactionSummary totalIncome={transactionsByMonth.totalIncome}  totalExpenses={transactionsByMonth.totalExpenses}/>
      <TransactionsList
@@ -101,7 +112,7 @@ function TransactionSummary({
   totalIncome,
   totalExpenses,
 }:TransactionsByMonth){
-  const savings=totalIncome-totalExpenses;
+   const savings=totalIncome-totalExpenses;
   const readablePeriod= new Date().toLocaleDateString("default",{
     month:"long",
     year: "numeric",

@@ -40,7 +40,7 @@ function TransactionInfo({
   date:number;
   description: string;
 }) {
-  const correctDate = new Date(date * 1000); 
+  const correctDate = new Date(date * 1000);
   return (
     <View style={{ flexGrow: 1, gap: 6, flexShrink: 1 }}>
       <Text style={{ fontSize: 16, fontWeight: "bold" }}>{description}</Text>
