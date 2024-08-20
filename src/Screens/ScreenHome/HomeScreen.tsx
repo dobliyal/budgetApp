@@ -1,17 +1,16 @@
 import { useSQLiteContext } from 'expo-sqlite/next';
 import * as React from 'react';
-import { View, Text, ScrollView, TextStyle, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TextStyle, Button, TouchableOpacity, StyleSheet, TouchableOpacity } from 'react-native';
 import { Category, Transaction } from '../../Utils/Types/types';
-import { styles } from './HomeScreenStyle';
-import TransactionsList from '../../Components/TransactionList/TransactionsList';
+import { styles } from './homeScreenStyle';
+import TransactionsList from './Components/TransactionList/TransactionsList';
 import { TransactionsByMonth } from '../../Utils/Types/types';
 import Card from '../../Components/commonCard/Card';
-import AddTransaction from '../../Components/addTransaction/addTransaction';
-import SummaryChart from '../../Components/SummaryChart/SummaryChart';
+import AddTransaction from './Components/AddTransaction/AddTransaction';import SummaryChart from './Components/SummaryChart/SummaryChart';import TransactionSummary from './Components/TransactionSummary/TransactionSummary'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Logout from '../../../assets/Logout';
-import { logout } from '../../Utils/firebaseauth/authService';
+import { logout } from '../../Utils/firebaseauth/authService';import { stylesButton } from './Components/AddTransaction/addTransactionStyle'
 
 type StackParamsList = {
   Payment: { savings: number };

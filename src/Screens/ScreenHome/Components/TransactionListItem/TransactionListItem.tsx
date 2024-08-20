@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { TransactionListItemProps } from '../../Utils/Types/types';
-import Card from '../commonCard/Card';
+import { TransactionListItemProps } from '../../../../Utils/Types/types';
+import Card from '../../../../Components/commonCard/Card';
 import { AntDesign } from "@expo/vector-icons";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
-import { categoryColors, categoryEmojies } from '../../Utils/Constants/constants';
+import { categoryColors, categoryEmojies } from '../../../../Utils/Constants/constants';
 import { styles } from './styleTransactionListItem';
-import { Category } from '../../Utils/Types/types';
+import { Category } from '../../../../Utils/Types/types';
 
 const TransactionListItem = ({ transaction, categoryInfo }: TransactionListItemProps) => {
   const iconName = transaction.type === "Expense" ? "minuscircle" : "pluscircle";
@@ -15,7 +15,7 @@ const TransactionListItem = ({ transaction, categoryInfo }: TransactionListItemP
   const emoji = categoryEmojies[categoryInfo?.name ?? "Default"];
   
   return (
-    <Card>
+    <Card >
       <View style={styles.row}>
         <View style={styles.categoryAmountContainer}>
           <Amount amount={transaction.amount} color={color} iconName={iconName} />

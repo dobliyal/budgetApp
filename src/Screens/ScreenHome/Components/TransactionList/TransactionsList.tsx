@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Animated, View, Text } from "react-native";
-import { Category, Transaction } from "../../Utils/Types/types";
+import { Category, Transaction } from "../../../../Utils/Types/types";
 import TransactionListItem from "../TransactionListItem/TransactionListItem";
 import { styles } from "./styleTransactionList";
 import GestureRecognizer from 'react-native-swipe-gestures';

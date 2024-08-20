@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { widthPercentageToDP, heightPercentageToDP } from '../../Responsive/responsive'; 
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,15 +9,15 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   blurView: {
-    height: '40%',
+    height: heightPercentageToDP('50%'), 
     width: '100%',
     position: 'absolute',
     bottom: 0,
     elevation: 8,
     shadowColor: '#000',
-    shadowRadius: 8,
+    shadowRadius: widthPercentageToDP('2%'), 
     shadowOpacity: 0.15,
-    padding: 16,
+    padding: widthPercentageToDP('4%'), 
   },
   header: {
     flexDirection: 'row',
@@ -25,42 +26,43 @@ export const styles = StyleSheet.create({
   },
   cancelButtonText: {
     color: '#007AFF',
-    fontSize: 17,
+    fontSize: widthPercentageToDP('4.5%'), 
   },
   content: {
-    gap: 10,
-    paddingTop: 16,
+    gap: heightPercentageToDP('1.25%'), 
+    paddingTop: heightPercentageToDP('2%'), 
   },
   titleText: {
     textAlign: 'center',
-    fontSize: 28,
+    fontSize: widthPercentageToDP('7%'), 
     fontWeight: 'bold',
     color: 'gray',
   },
   savingsText: {
     textAlign: 'center',
-    fontSize: 32,
+    fontSize: widthPercentageToDP('8%'), 
     fontWeight: '900',
-    marginTop: 16,
+    marginTop: heightPercentageToDP('2%'), 
   },
   infoText: {
     textAlign: 'center',
+    fontSize: widthPercentageToDP('4.5%'), 
   },
   premiumButton: {
     backgroundColor: 'black',
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 16,
+    padding: widthPercentageToDP('3%'), 
+    borderRadius: widthPercentageToDP('2.5%'), 
+    marginTop: heightPercentageToDP('2%'), 
   },
   premiumButtonText: {
     fontWeight: '700',
-    fontSize: 17,
+    fontSize: widthPercentageToDP('4.5%'),
     color: 'white',
     textAlign: 'center',
   },
   maybeLaterText: {
     color: 'gray',
-    fontSize: 17,
+    fontSize: widthPercentageToDP('4.5%'), 
     textAlign: 'center',
   },
 });
