@@ -5,6 +5,7 @@ import { BarChart, barDataItem } from "react-native-gifted-charts";
 import { useSQLiteContext } from "expo-sqlite/next";
 import { processWeeklyData } from "../SummaryChart/Utils/ChartQuery";
 import { SymbolView } from "expo-symbols";
+import Card from "../commonCard/Card";
 
 enum Period {
   week = "week",
@@ -88,7 +89,7 @@ export default function SummaryChart() {
   };
 
   return (
-    <View>
+    <Card style={{marginBottom: 16}}>
       <Text style={{ fontWeight: "700", fontSize: 18, marginBottom: 8 }}>
         {currentEndDate.toLocaleDateString("en-US", { month: "short" })}{" "}
         {currentEndDate.getDate()} -{" "}
@@ -162,6 +163,6 @@ export default function SummaryChart() {
           <Text style={{ fontSize: 11, color: "gray" }}>Next week</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Card>
   );
 }
