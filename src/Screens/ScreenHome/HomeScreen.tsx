@@ -7,8 +7,12 @@ import TransactionsList from '../../Components/TransactionList/TransactionsList'
 import { TransactionsByMonth } from '../../Utils/Types/types'
 import Card from '../../Components/commonCard/Card'
 import AddTransaction from '../../Components/addTransaction/addTransaction'
+
+import SummaryChart from '../../Components/SummaryChart/SummaryChart'
+
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
 
 type StackParamsList = {
   Payment:{savings: number},
@@ -33,7 +37,9 @@ const HomeScreen = () => {
   }, [db]);
 
   async function getData(){
-    const result=await db.getAllAsync<Transaction>('SELECT * FROM Transactions ORDER BY date DESC;');
+    const result=await db.getAllAsync<Transaction>(
+      `SELECT * FROM Transactions ORDER BY date DESC LIMIT 10;`
+    );
     setTransactions(result);
 
     const categoriesResult= await db.getAllAsync<Category>(
@@ -97,7 +103,10 @@ const HomeScreen = () => {
         })}
        />
       <AddTransaction insertTransaction={insertTransaction}/>
-      <TransactionSummary totalIncome={transactionsByMonth.totalIncome}  totalExpenses={transactionsByMonth.totalExpenses}/>
+      <SummaryChart/>
+      <TransactionSummary 
+      totalIncome={transactionsByMonth.totalIncome}  
+      totalExpenses={transactionsByMonth.totalExpenses}/>
      <TransactionsList
      transactions={transactions}
      categories={categories}
