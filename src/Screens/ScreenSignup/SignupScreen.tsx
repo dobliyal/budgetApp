@@ -1,125 +1,134 @@
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useForm, Controller } from 'react-hook-form';
-// import { setUser, setError } from '../ScreenLogin/redux/authSlice'; 
-// import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-// import { RootState } from '../../Utils/Redux/store'; 
-// import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-// import { auth } from '../../Firebase/firebase'; 
+import React, { useState } from 'react';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native';
+import { signup } from '../../Utils/firebaseauth/authService';
 
-// interface FormValues {
-//   name: string;
-//   email: string;
-//   password: string;
-// }
+const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [buttonAnimation] = useState(new Animated.Value(1));
 
-// const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-//   const dispatch = useDispatch();
-//   const { control, handleSubmit, formState: { errors } } = useForm<FormValues>();
-//   const error = useSelector((state: RootState) => state.auth.error);
+  const handleSignup = async () => {
+    try {
+      await signup(email, password, name);
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   const onSubmit = async (data: FormValues) => {
-//     try {
-//       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-//       await updateProfile(auth.currentUser!, { displayName: data.name });
-//       dispatch(setUser(userCredential.user));
-//       navigation.navigate('Home'); // Navigate to Home screen upon successful signup
-//     } catch (error: any) {
-//       dispatch(setError(error.message));
-//     }
-//   };
+  const animateButton = () => {
+    Animated.timing(buttonAnimation, {
+      toValue: 0.8,
+      duration: 100,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.timing(buttonAnimation, {
+        toValue: 1,
+        duration: 100,
+        easing: Easing.inOut(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    });
+  };
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.header}>Sign Up</Text>
-//       <Controller
-//         control={control}
-//         name="name"
-//         rules={{ required: 'Name is required' }}
-//         render={({ field: { onChange, onBlur, value } }) => (
-//           <TextInput
-//             placeholder="Name"
-//             onChangeText={onChange}
-//             onBlur={onBlur}
-//             value={value}
-//             style={styles.input}
-//           />
-//         )}
-//       />
-//       {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Let's Register 🖐</Text>
+      {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
+      <TextInput
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={styles.input}
+      />
+      <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            animateButton();
+            handleSignup();
+          }}
+        >
+          <Text style={styles.buttonText}>Signup</Text>
+        </TouchableOpacity>
+      </Animated.View>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.link}>Go to Login</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
-//       <Controller
-//         control={control}
-//         name="email"
-//         rules={{ required: 'Email is required' }}
-//         render={({ field: { onChange, onBlur, value } }) => (
-//           <TextInput
-//             placeholder="Email"
-//             onChangeText={onChange}
-//             onBlur={onBlur}
-//             value={value}
-//             style={styles.input}
-//           />
-//         )}
-//       />
-//       {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    fontSize: 16,
+  },
+  inputFocused: {
+    borderColor: '#007bff',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: '#000',
+    paddingVertical: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    width: '100%',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  link: {
+    color: '#007bff',
+    textAlign: 'center',
+    marginTop: 15,
+    fontSize: 16,
+  },
+});
 
-//       <Controller
-//         control={control}
-//         name="password"
-//         rules={{ required: 'Password is required' }}
-//         render={({ field: { onChange, onBlur, value } }) => (
-//           <TextInput
-//             placeholder="Password"
-//             secureTextEntry
-//             onChangeText={onChange}
-//             onBlur={onBlur}
-//             value={value}
-//             style={styles.input}
-//           />
-//         )}
-//       />
-//       {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
-
-//       {error && <Text style={styles.error}>{error}</Text>}
-
-//       <Button title="Sign Up" onPress={handleSubmit(onSubmit)} />
-
-//       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-//         <Text style={styles.link}>Already have an account? Log In</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     padding: 16,
-//   },
-//   header: {
-//     fontSize: 24,
-//     fontWeight: 'bold',
-//     marginBottom: 24,
-//     textAlign: 'center',
-//   },
-//   input: {
-//     height: 40,
-//     borderColor: '#ddd',
-//     borderWidth: 1,
-//     marginBottom: 12,
-//     paddingHorizontal: 8,
-//   },
-//   error: {
-//     color: 'red',
-//     marginBottom: 12,
-//   },
-//   link: {
-//     color: 'blue',
-//     marginTop: 16,
-//     textAlign: 'center',
-//   },
-// });
-
-// export default SignupScreen;
+export default SignupScreen;
