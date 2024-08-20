@@ -4,6 +4,7 @@ export const styles=StyleSheet.create({
     mainContainer:{
         padding:15,
         paddingVertical: Platform.OS === "ios" ? 170 : 16,
+        
     },
     container: {
         marginBottom: 16,
