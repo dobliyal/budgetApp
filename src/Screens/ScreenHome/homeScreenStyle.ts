@@ -4,7 +4,7 @@ import { widthPercentageToDP, heightPercentageToDP } from '../../Responsive/resp
 export const styles = StyleSheet.create({
   mainContainer: {
     padding: widthPercentageToDP('4%'), 
-    paddingVertical: Platform.OS === 'ios' ? heightPercentageToDP('16%') : heightPercentageToDP('1%'), 
+    paddingVertical: Platform.OS === 'ios' ? heightPercentageToDP('19%') : heightPercentageToDP('1%'), 
   },
   container: {
     marginBottom: heightPercentageToDP('2%'),
