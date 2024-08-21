@@ -4,7 +4,6 @@ import { useIdTokenAuthRequest } from 'expo-auth-session/providers/google';
 import { useEffect } from 'react';
 
 export const useGoogleSignIn = () => {
-  // Set the redirectUri with your Expo username and app slug
   const redirectUri = 'https://auth.expo.io/@shashanksingh1203/NativeFinalProject';
 
   const [request, response, promptAsync] = useIdTokenAuthRequest({
