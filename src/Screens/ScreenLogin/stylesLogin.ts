@@ -25,6 +25,20 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#333',
     },
+    text: {
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    card: {
+      borderWidth: 1,
+      borderRadius: 15,
+      padding: 15,
+    },
+    image: {
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+    },
     error: {
       color: 'red',
       textAlign: 'center',
