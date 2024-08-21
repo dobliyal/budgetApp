@@ -4,7 +4,7 @@ import Card from '../../../../Components/commonCard/Card';
 import { Text, TextStyle } from 'react-native';
 import { styles } from '../../homeScreenStyle';
 
-function TransactionSummary({
+function Transactionsummary({
     totalIncome,
     totalExpenses,
   }:TransactionsByMonth){
@@ -48,4 +48,4 @@ function TransactionSummary({
   }
   
 
-export default TransactionSummary
+export default Transactionsummary

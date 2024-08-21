@@ -19,6 +19,21 @@ export const styles = StyleSheet.create({
     borderTopColor: '#00000010',
     padding: widthPercentageToDP('4%'), 
   },
+  button: {
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#007BFF20',
+    borderRadius: 15,
+    marginBottom: 6,
+  },
+  buttonText: {
+    fontWeight: '700',
+    color: '#007BFF',
+    marginLeft: 5,
+    fontSize: 16,
+  },
   periodTitle: {
     fontSize: widthPercentageToDP('6%'), 
     fontWeight: 'bold',

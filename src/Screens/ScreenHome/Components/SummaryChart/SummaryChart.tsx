@@ -41,7 +41,7 @@ export default function SummaryChart() {
 
   const getWeekRange = (date: Date) => {
     const dayOfWeek = date.getDay();
-    const distanceToMonday = (dayOfWeek + 6) % 7; // Adjusting to start from Monday
+    const distanceToMonday = (dayOfWeek + 6) % 7; 
     const startOfWeek = new Date(date.setDate(date.getDate() - distanceToMonday));
     const endOfWeek = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
     return {
