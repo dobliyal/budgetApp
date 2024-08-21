@@ -99,10 +99,11 @@ export default function SummaryChart() {
   return (
     <Card style={styles.card}>
       <Text style={styles.dateRangeText}>
-        {currentEndDate.toLocaleDateString("en-US", { month: "short" })}{" "}
-        {currentEndDate.getDate()} -{" "}
+      {currentDate.getDate()}
         {currentDate.toLocaleDateString("en-US", { month: "short" })}{" "}
-        {currentDate.getDate()}
+        -{" "} {currentEndDate.getDate()} 
+        {currentEndDate.toLocaleDateString("en-US", { month: "short" })}{" "}
+        
       </Text>
       <Text style={styles.totalText}>
         Total {transactionType === "Expense" ? "Spending" : "Income"}{" "}
