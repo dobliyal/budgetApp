@@ -11,7 +11,8 @@ import Transactionsummary from './Components/TransactionSummary/TransactionSumma
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Logout from '../../../assets/Logout';
-import { logout } from '../../Utils/firebaseauth/authService';import { stylesButton } from './Components/AddTransaction/addTransactionStyle'
+import { logout } from '../../Utils/firebaseauth/authService';
+import { stylesButton } from './Components/AddTransaction/addTransactionStyle'
 
 type StackParamsList = {
   Payment: { savings: number };

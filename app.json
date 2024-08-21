@@ -11,30 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.nativefinalproject",
-      "infoPlist": {
-        "NSCameraUsageDescription": "This app requires camera access to take photos.",
-        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
-      }
-    },
-    "android": {
-      "package": "com.anonymous.NativeFinalProject",
-      "googleServicesFile": "./android/app/google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "CAMERA",
-        "RECORD_AUDIO"
-      ]
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "nativefinalproject",  
+    "scheme": "nativefinalproject",
     "plugins": [
       "expo-asset",
       [
@@ -45,6 +25,14 @@
           "recordAudioAndroid": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d954be99-9a55-43d7-b512-d4297e9182c8"
+      }
+    },
+    "android": {
+      "package": "com.rohitdobliyal.NativeFinalProject"
+    }
   }
 }
