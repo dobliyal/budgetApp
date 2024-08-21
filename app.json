@@ -28,13 +28,15 @@
       },
       "permissions": [
         "CAMERA",
-        "RECORD_AUDIO"
+        "RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "nativefinalproject",  
+    "scheme": "nativefinalproject",
     "plugins": [
       "expo-asset",
       [
@@ -45,6 +47,11 @@
           "recordAudioAndroid": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2a43f015-6e74-419d-bfc7-94121dac8207"
+      }
+    }
   }
 }
