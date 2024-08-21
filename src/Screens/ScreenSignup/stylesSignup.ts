@@ -1,61 +1,60 @@
 import { StyleSheet } from 'react-native';
-
+import { widthPercentageToDP, heightPercentageToDP } from '../../Responsive/responsive'
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      padding: 20,
-      backgroundColor: '#f5f5f5',
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 20,
-      textAlign: 'center',
-    },
-    input: {
-      height: 50,
-      borderColor: '#bde0fe',
-      borderWidth: 2,
-      borderRadius: 15,
-      marginVertical: 10,
-      paddingHorizontal: 15,
-      backgroundColor: '#fff',
-      fontSize: 16,
-      color: '#333',
-    },
-    inputFocused: {
-      borderColor: '#007bff',
-    },
-    error: {
-      color: 'red',
-      textAlign: 'center',
-      marginBottom: 10,
-    },
-    buttonContainer: {
-      marginTop: 20,
-    },
-    button: {
-      backgroundColor: '#00b4d8',
-      paddingVertical: 15,
-      borderRadius: 15,
-      alignItems: 'center',
-      width: '100%',
-      marginVertical: 5,
-    },
-    buttonText: {
-      color: '#fff',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    link: {
-      color: '#007bff',
-      textAlign: 'center',
-      marginTop: 15,
-      fontSize: 16,
-    },
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: widthPercentageToDP('5%'),
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: widthPercentageToDP('6%'),
+    fontWeight: 'bold',
+    marginBottom: heightPercentageToDP('3%'),
+    textAlign: 'center',
+  },
+  input: {
+    height: heightPercentageToDP('6%'),
+    borderColor: '#bde0fe',
+    borderWidth: 2,
+    borderRadius: widthPercentageToDP('3%'),
+    marginVertical: heightPercentageToDP('1.5%'),
+    paddingHorizontal: widthPercentageToDP('4%'),
+    backgroundColor: '#fff',
+    fontSize: widthPercentageToDP('4%'),
+    color: '#333',
+  },
+  inputFocused: {
+    borderColor: '#007bff',
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: heightPercentageToDP('2%'),
+  },
+  buttonContainer: {
+    marginTop: heightPercentageToDP('3%'),
+  },
+  button: {
+    backgroundColor: '#00b4d8',
+    paddingVertical: heightPercentageToDP('1.5%'),
+    borderRadius: widthPercentageToDP('3%'),
+    alignItems: 'center',
+    width: '100%',
+    marginVertical: heightPercentageToDP('1%'),
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: widthPercentageToDP('4.5%'),
+    fontWeight: 'bold',
+  },
+  link: {
+    color: '#007bff',
+    textAlign: 'center',
+    marginTop: heightPercentageToDP('2%'),
+    fontSize: widthPercentageToDP('4%'),
+  },
+});
 
-
-  export default styles;
+export default styles;

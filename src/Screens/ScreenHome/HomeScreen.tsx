@@ -111,7 +111,7 @@ const HomeScreen = () => {
           })
         }
       >
-        <Text style={styles.buttonText}>Payment</Text>
+        <Text style={styles.buttonText}>Savings</Text>
       </TouchableOpacity>
 
 
