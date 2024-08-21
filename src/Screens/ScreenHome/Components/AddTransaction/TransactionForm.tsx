@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Button } from 'react-native';
-import Card from '../commonCard/Card';
+import Card from '../../../../Components/commonCard/Card';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import CategoryButton from './CategoryButton';
-import { Category } from '../../Utils/Types/types';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Category } from '../../../../Utils/Types/types';
 import { stylesForm } from './addTransactionStyle';
 
 const TransactionForm = ({
@@ -12,9 +13,11 @@ const TransactionForm = ({
   categories,
   currentTab,
   typeSelected,
+  date,
   setAmount,
   setDescription,
   setCurrentTab,
+  setDate,
   setIsScannerActive,
   setTypeSelected,
   setCategoryId,
@@ -26,15 +29,25 @@ const TransactionForm = ({
   categories: Category[];
   currentTab: number;
   typeSelected: string;
+  date: Date;
   setAmount: React.Dispatch<React.SetStateAction<string>>;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   setCurrentTab: React.Dispatch<React.SetStateAction<number>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
   setIsScannerActive: React.Dispatch<React.SetStateAction<boolean>>;
   setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
   setCategoryId: React.Dispatch<React.SetStateAction<number>>;
   handleSave: () => void;
   setIsAddingTransaction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    const currentDate = selectedDate || date;
+    setShowDatePicker(false);
+    setDate(currentDate);
+  };
+
   return (
     <View>
       <Card>
@@ -79,6 +92,24 @@ const TransactionForm = ({
         >
           <Text style={stylesForm.scanButtonText}>Scan Barcode</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setShowDatePicker(true)}
+           style={stylesForm.datePickerButton}
+        >
+          <Text 
+           style={stylesForm.datePickerButtonText}
+          >
+            {date.toDateString()}
+          </Text>
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={date}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
       </Card>
       <View style={stylesForm.buttonContainer}>
         <Button

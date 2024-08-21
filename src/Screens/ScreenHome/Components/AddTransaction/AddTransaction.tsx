@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text } from 'react-native';
-import { Transaction } from '../../Utils/Types/types';
+import { View } from 'react-native';
+import { Transaction } from '../../../../Utils/Types/types';
 import { useSQLiteContext } from 'expo-sqlite/next';
-import { Category } from '../../Utils/Types/types';
 import ScannerView from './ScannerView';
 import TransactionForm from './TransactionForm';
 import AddButton from './AddButton';
 import { stylesAddTransaction } from './addTransactionStyle';
-
+import { Category } from '../../../../Utils/Types/types';
 const AddTransaction = ({
   insertTransaction,
 }: {
@@ -22,6 +21,7 @@ const AddTransaction = ({
   const [category, setCategory] = useState<string>('Expense');
   const [categoryId, setCategoryId] = useState<number>(1);
   const [isScannerActive, setIsScannerActive] = useState<boolean>(false);
+  const [date, setDate] = useState<Date>(new Date());
 
   const db = useSQLiteContext();
 
@@ -41,30 +41,22 @@ const AddTransaction = ({
   };
 
   async function handleSave() {
-    console.log({
+    // @ts-ignore
+    await insertTransaction({
       amount: Number(amount),
       description,
       category_id: categoryId,
-      date: new Date().getTime() / 1000,
-      type: category as "Expense" | "Income",
+      date: Math.floor(date.getTime() / 1000),
+      type: category as 'Expense' | 'Income',
     });
 
-     // @ts-ignore
-    await insertTransaction({
-        amount: Number(amount),
-        description,
-        category_id: categoryId,
-        date: new Date().getTime() / 1000,
-        type: category as "Expense" | "Income",
-    });
-
-    setAmount("");
-    setDescription("");
-    setCategory("Expense");
+    setAmount('');
+    setDescription('');
+    setCategory('Expense');
     setCategoryId(1);
     setCurrentTab(0);
     setIsAddingTransaction(false);
-    setTypeSelected("");
+    setTypeSelected('');
   }
 
   const handleBarcodeScanned = ({ data }: { data: string }) => {
@@ -90,9 +82,11 @@ const AddTransaction = ({
           categories={categories}
           currentTab={currentTab}
           typeSelected={typeSelected}
+          date={date}
           setAmount={setAmount}
           setDescription={setDescription}
           setCurrentTab={setCurrentTab}
+          setDate={setDate}
           setIsScannerActive={setIsScannerActive}
           setTypeSelected={setTypeSelected}
           setCategoryId={setCategoryId}

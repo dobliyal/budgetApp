@@ -9,7 +9,7 @@ const Card = ({children, style= {}}:CardProps) => {
   return (
     <View
     style={{
-        padding: 15,
+        padding: 12,
         borderRadius: 15,
         backgroundColor: "white",
         elevation: 8,
