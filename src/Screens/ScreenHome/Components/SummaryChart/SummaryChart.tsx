@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import { useSQLiteContext } from "expo-sqlite/next";
 import { processWeeklyData } from "./Utils/ChartQuery";
-import { SymbolView } from "expo-symbols";
+// import { SymbolView } from 'expo-symbols';
 import Card from "../../../../Components/commonCard/Card";
 import { styles } from './styleSummaryChart'; 
 
@@ -31,7 +31,7 @@ export default function SummaryChart() {
         const { startDate, endDate } = getWeekRange(currentDate);
         setCurrentEndDate(() => new Date(endDate * 1000));
         const data = await fetchWeeklyData(startDate, endDate, transactionType);
-        console.log("Data before process", data);
+        console.log(data);
         setBarData(processWeeklyData(data, transactionType));
         setChartKey((prev) => prev + 1);
       }
@@ -41,7 +41,8 @@ export default function SummaryChart() {
 
   const getWeekRange = (date: Date) => {
     const dayOfWeek = date.getDay();
-    const distanceToMonday = (dayOfWeek + 6) % 7; 
+    const distanceToMonday = (dayOfWeek + 7) % 7; 
+    console.log(distanceToMonday + "yo");
     const startOfWeek = new Date(date.setDate(date.getDate() - distanceToMonday));
     const endOfWeek = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
     return {
@@ -81,14 +82,12 @@ export default function SummaryChart() {
       const result = await db.getAllAsync<{
         day_of_week: number;
         total: number;
-      }>(query, [startDate , endDate , type]);
-  
+      }>(query, [startDate, endDate , type]);
+  console.log("Weekly Data:", result);
       const formattedResult = result.map((item) => ({
         dayOfWeek: item.day_of_week, 
         total: item.total,
       }));
-      console.log(startDate);
-      console.log(formattedResult);
       return formattedResult;
     } catch (e) {
       console.error("Error fetching weekly data:", e);
@@ -99,9 +98,9 @@ export default function SummaryChart() {
   return (
     <Card style={styles.card}>
       <Text style={styles.dateRangeText}>
-      {currentDate.getDate()}
-        {currentDate.toLocaleDateString("en-US", { month: "short" })}{" "}
-        -{" "} {currentEndDate.getDate()} 
+      {currentDate.getDate() +" "}
+        {currentDate.toLocaleDateString("en-US", { month: "short" })}{"  "}
+        -{"  "} {currentEndDate.getDate() + " "} 
         {currentEndDate.toLocaleDateString("en-US", { month: "short" })}{" "}
         
       </Text>
@@ -136,12 +135,12 @@ export default function SummaryChart() {
           onPress={handlePreviousWeek}
           style={{ alignItems: "center" }}
         >
-          <SymbolView
+          {/* <SymbolView
             name="chevron.left.circle.fill"
             size={40}
             type="hierarchical"
             tintColor={"gray"}
-          />
+          /> */}
           <Text style={styles.buttonText}>Prev week</Text>
         </TouchableOpacity>
         <SegmentedControl
@@ -161,12 +160,12 @@ export default function SummaryChart() {
           onPress={handleNextWeek}
           style={{ alignItems: "center" }}
         >
-          <SymbolView
+          {/* <SymbolView
             name="chevron.right.circle.fill"
             size={40}
             type="hierarchical"
             tintColor={"gray"}
-          />
+          /> */}
           <Text style={styles.buttonText}>Next week</Text>
         </TouchableOpacity>
       </View>

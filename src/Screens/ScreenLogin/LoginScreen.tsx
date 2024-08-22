@@ -78,8 +78,8 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </Animated.View>
-{/* 
-        <TouchableOpacity onPress={handleGoogleSignIn} style={styles.googleButton}>
+
+        {/* <TouchableOpacity onPress={handleGoogleSignIn} style={styles.googleButton}>
           <Text style={styles.buttonText}>Sign in with Google</Text>
         </TouchableOpacity> */}
 
