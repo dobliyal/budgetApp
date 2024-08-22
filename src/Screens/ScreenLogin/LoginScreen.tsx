@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Animated, Easing, Button } from 'react-native';
 import { login } from '../../Utils/firebaseauth/authService';
-import { useGoogleSignIn } from '../../Utils/firebaseauth/googleSignIn';
+import * as Google from "expo-auth-session/providers/google";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import  styles  from './stylesLogin';
 
 const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -9,8 +10,10 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [buttonAnimation] = useState(new Animated.Value(1));
+  const [token, setToken] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
 
-  const { promptAsync } = useGoogleSignIn();
+
 
   const handleLogin = async () => {
     try {
@@ -22,15 +25,57 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: "571607723129-5etqd6mckns2i5588kjc5s49pqs6vlj3.apps.googleusercontent.com",
+    iosClientId: "571607723129-49db34cls8qo89rhcvmttvodeht5pikb.apps.googleusercontent.com",
+  });
+  
+  useEffect(() => {
+    handleEffect();
+  }, [response, token]);
+  
+  async function handleEffect() {
+    const user = await getLocalUser();
+    console.log("user", user);
+    
+    if (!user) {
+      if (response?.type === "success" && response.authentication?.accessToken) {
+        getUserInfo(response.authentication.accessToken);
+      } else {
+        console.log("Authentication response or token is null");
+      }
+    } else {
+      setUserInfo(user);
+      console.log("loaded locally");
+    }
+  }
+  
+
+  const getLocalUser = async () => {
+    const data = await AsyncStorage.getItem("@user");
+    if (!data) return null;
+    return JSON.parse(data);
+  };
+
+  const getUserInfo = async (token: string) => {
+    if (!token) return;
     try {
-      await promptAsync(); 
-      navigation.navigate('Home');
+      const response = await fetch(
+        "https://www.googleapis.com/userinfo/v2/me",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      const user = await response.json();
+      await AsyncStorage.setItem("@user", JSON.stringify(user));
+      setUserInfo(user);
     } catch (error) {
-      console.log(error);
-      setErrorMessage('Google Sign-In failed.');
+      // Add 
     }
   };
+
+
 
   const animateButton = () => {
     Animated.timing(buttonAnimation, {
@@ -79,14 +124,24 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         </TouchableOpacity>
       </Animated.View>
 
-        {/* <TouchableOpacity onPress={handleGoogleSignIn} style={styles.googleButton}>
-          <Text style={styles.buttonText}>Sign in with Google</Text>
-        </TouchableOpacity> */}
+      <Button
+          title="Sign in with Google"
+          disabled={!request}
+          onPress={() => {
+            promptAsync();
+          }}
+        />
+
+
 
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.link}>Go to Signup</Text>
       </TouchableOpacity>
+
+
     </View>
+
+    
   );
 };
 

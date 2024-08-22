@@ -25,7 +25,7 @@
     "cocoapods": "^0.0.0",
     "expo": "~51.0.28",
     "expo-asset": "~10.0.10",
-    "expo-auth-session": "^5.5.2",
+    "expo-auth-session": "~5.5.2",
     "expo-blur": "^13.0.2",
     "expo-camera": "~15.0.14",
     "expo-file-system": "~17.0.1",
@@ -46,7 +46,13 @@
     "react-native-swipe-gestures": "^1.0.5",
     "react-redux": "^9.1.2",
     "redux-thunk": "^3.1.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "expo-crypto": "~13.0.2",
+    "expo-web-browser": "~13.0.3",
+    "react-native-web": "~0.19.10",
+    "react-dom": "18.2.0",
+    "@expo/webpack-config": "~19.0.1",
+    "expo-random": "~14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

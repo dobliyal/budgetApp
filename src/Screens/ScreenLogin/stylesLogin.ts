@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { widthPercentageToDP, heightPercentageToDP } from '../../Responsive/responsive';
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -63,5 +64,6 @@ const styles = StyleSheet.create({
     fontSize: widthPercentageToDP('4%'),
   },
 });
+
 
 export default styles;
