@@ -27,8 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>nativefinalproject</string>
-          <string>com.rohitdobliyal.NativeFinalProject</string>
+          <string>com.anonymous.NativeFinalProject</string>
         </array>
       </dict>
     </array>
@@ -43,10 +42,6 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
-    <key>NSCameraUsageDescription</key>
-    <string>Allow NativeFinalProject to access your camera</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Allow NativeFinalProject to access your microphone</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
