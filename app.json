@@ -1,6 +1,6 @@
 {
   "expo": {
-    "owner": "shashanksingh1203",
+    "owner": "rohitdobliyal",
     "name": "NativeFinalProject",
     "slug": "NativeFinalProject",
     "version": "1.0.0",
@@ -26,6 +26,14 @@
           "recordAudioAndroid": true
         }
       ]
+      ,[
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.571607723129-49db34cls8qo89rhcvmttvodeht5pikb"
+        }
+      ]
+    ]
     ],
     "extra": {
       "eas": {
