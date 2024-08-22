@@ -79,9 +79,19 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         </TouchableOpacity>
       </Animated.View>
 
-        {/* <TouchableOpacity onPress={handleGoogleSignIn} style={styles.googleButton}>
-          <Text style={styles.buttonText}>Sign in with Google</Text>
-        </TouchableOpacity> */}
+
+<Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
+        <TouchableOpacity
+          style={styles.buttonGoogle}
+          onPress={() => {
+            promptAsync();
+          }}
+        >
+          <Text style={styles.buttonText}>Sign in Google</Text>
+        </TouchableOpacity>
+      </Animated.View>
+
+
 
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.link}>Go to Signup</Text>
