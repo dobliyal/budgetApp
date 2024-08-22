@@ -32,14 +32,7 @@
       }
     },
     "android": {
-      "package": "com.rohitdobliyal.NativeFinalProject",
-      "permissions": [
-        "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
-      ]
-    },
-    "ios": {
-      "bundleIdentifier": "com.rohitdobliyal.NativeFinalProject"
+      "package": "com.rohitdobliyal.NativeFinalProject"
     }
   }
 }
