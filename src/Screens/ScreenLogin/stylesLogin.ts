@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: heightPercentageToDP('1%'),
   },
-  googleButton: {
+  buttonGoogle: {
     backgroundColor: '#db4437',
     paddingVertical: heightPercentageToDP('2.5%'),
     borderRadius: widthPercentageToDP('4%'),
