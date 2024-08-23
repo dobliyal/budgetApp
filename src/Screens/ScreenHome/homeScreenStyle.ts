@@ -21,28 +21,27 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // or 'space-around' for equal spacing
+    justifyContent: 'space-between', 
     alignItems: 'center',
-    marginVertical: 5, // Adjust the margin as needed
+    marginVertical: 5, 
   },
   button: {
     height: 40,
-    flex: 10, // Each button will take up equal space
+    flex: 10, 
     backgroundColor: '#007BFF20',
     paddingVertical: 10,
     paddingHorizontal: 15,
-    marginHorizontal: 5, // Space between the buttons
+    marginHorizontal: 5, 
     borderRadius: 15,
     marginBottom: 6,
     alignItems: 'center',
   },
   buttonlogout:{
     height: 40,
-    flex: 0.8, // Each button will take up equal space
+    flex: 0.8, 
     paddingVertical: 8,
-    backgroundColor: '#a9def9',
     paddingHorizontal: 15,
-    marginHorizontal: 5, // Space between the buttons
+    marginHorizontal: 5, 
     borderRadius: 15,
     marginBottom: 6,
     alignItems: 'center',

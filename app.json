@@ -1,6 +1,6 @@
 {
   "expo": {
-    "owner": "rohitdobliyal",
+    "owner": "shashanksingh1203",
     "name": "NativeFinalProject",
     "slug": "NativeFinalProject",
     "version": "1.0.0",
@@ -29,7 +29,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d954be99-9a55-43d7-b512-d4297e9182c8"
+        "projectId": "2a43f015-6e74-419d-bfc7-94121dac8207"
       }
     },
     "android": {
