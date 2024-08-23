@@ -26,14 +26,6 @@
           "recordAudioAndroid": true
         }
       ]
-      ,[
-      [
-        "@react-native-google-signin/google-signin",
-        {
-          "iosUrlScheme": "com.googleusercontent.apps.571607723129-49db34cls8qo89rhcvmttvodeht5pikb"
-        }
-      ]
-    ]
     ],
     "extra": {
       "eas": {

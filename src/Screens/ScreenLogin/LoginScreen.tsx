@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Text, TouchableOpacity, Animated, Easing } from 'react-native';
 import { login } from '../../Utils/firebaseauth/authService';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './stylesLogin';
+import LottieView from 'lottie-react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const animationRef=useRef<LottieView>(null);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [buttonAnimation] = useState(new Animated.Value(1));
   const [userInfo, setUserInfo] = useState<any>(null);
-
+  const [loading,setLoading]=useState<any>(false);
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: '571607723129-7q3v8hbl2foe5qoajai8ddj88cptjnr8.apps.googleusercontent.com',
     iosClientId: '571607723129-49db34cls8qo89rhcvmttvodeht5pikb.apps.googleusercontent.com',
@@ -37,7 +39,6 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       }
     } else {
       setUserInfo(user);
-      console.log('User loaded from local storage');
     }
   }
 
@@ -63,6 +64,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
+  setLoading(true);
     try {
       await login(email, password);
       navigation.navigate('Home');
@@ -70,22 +72,15 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       console.log(error);
       setErrorMessage('Login failed. Please check your credentials.');
     }
+    finally{
+      setLoading(false);
+    }
   };
 
   const animateButton = () => {
-    Animated.timing(buttonAnimation, {
-      toValue: 0.8,
-      duration: 100,
-      easing: Easing.inOut(Easing.ease),
-      useNativeDriver: true,
-    }).start(() => {
-      Animated.timing(buttonAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.inOut(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-    });
+    if (animationRef.current){
+      animationRef.current.play();
+    }
   };
 
   return (
@@ -107,29 +102,25 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         secureTextEntry
         style={styles.input}
       />
-      <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            animateButton();
-            handleLogin();
-          }}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </Animated.View>
-
-      <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
-        <TouchableOpacity
-          style={styles.buttonGoogle}
-          onPress={() => {
-            promptAsync();
-          }}
-          disabled={!request}
-        >
-          <Text style={styles.buttonText}>Sign in with Google</Text>
-        </TouchableOpacity>
-      </Animated.View>
+       {loading ? (
+        <LottieView
+          ref={animationRef}
+          autoPlay
+          loop
+          style={styles.loading}  
+          source={require('./assets/loading.json')}
+        />
+      ) : (
+        <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleLogin}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+     
 
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.link}>Go to Signup</Text>
