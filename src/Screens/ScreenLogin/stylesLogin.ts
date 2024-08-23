@@ -6,20 +6,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: widthPercentageToDP('5%'),
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#feffff',
+  },
+  topSvg: {
+    alignSelf: 'flex-start',
+    marginLeft: heightPercentageToDP('-3%'),
+    marginTop: heightPercentageToDP('-35%'),
+    height: heightPercentageToDP('70%'),
+    width: widthPercentageToDP('100%'),
+  },
+  signinTextSvg: {
+    alignSelf: 'center',
+    marginBottom: heightPercentageToDP('2%'),
+  },
+  signinLineSvg: {
+    alignSelf: 'center',
+    marginBottom: heightPercentageToDP('4%'),
   },
   title: {
     fontSize: widthPercentageToDP('7%'),
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: heightPercentageToDP('4%'),
-    textAlign: 'center',
+    color: '#000814',
+    marginBottom: heightPercentageToDP('1%'),
+    marginTop: heightPercentageToDP('-8%'),
+
   },
   input: {
     height: heightPercentageToDP('6%'),
-    borderColor: '#bde0fe',
+    borderColor: '#e0e1dd',
     borderWidth: 2,
-    borderRadius: widthPercentageToDP('4%'),
+    borderRadius: widthPercentageToDP('3%'),
     marginVertical: heightPercentageToDP('1.5%'),
     paddingHorizontal: widthPercentageToDP('4%'),
     backgroundColor: '#fff',
@@ -36,7 +52,7 @@ const styles = StyleSheet.create({
     marginTop: heightPercentageToDP('3%'),
   },
   button: {
-    backgroundColor: '#00b4d8',
+    backgroundColor: '#001d3d',
     paddingVertical: heightPercentageToDP('1.5%'),
     borderRadius: widthPercentageToDP('4%'),
     alignItems: 'center',
@@ -63,7 +79,5 @@ const styles = StyleSheet.create({
     fontSize: widthPercentageToDP('4%'),
   },
 });
-
-
 
 export default styles;
