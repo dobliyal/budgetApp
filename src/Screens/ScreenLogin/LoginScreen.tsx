@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   View, 
@@ -11,21 +12,26 @@ import {
   Platform, 
   ScrollView 
 } from 'react-native';
+
 import { login } from '../../Utils/firebaseauth/authService';
 import * as WebBrowser from 'expo-web-browser';
 import styles from './stylesLogin';
+import LottieView from 'lottie-react-native';
 
 
 
 WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const animationRef=useRef<LottieView>(null);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [buttonAnimation] = useState(new Animated.Value(1));
 
+
   const handleLogin = async () => {
+  setLoading(true);
     try {
       await login(email, password);
       navigation.navigate('Home');
@@ -33,22 +39,15 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       console.log(error);
       setErrorMessage('Login failed. Please check your credentials.');
     }
+    finally{
+      setLoading(false);
+    }
   };
 
-  const animateButton = () => {
-    Animated.timing(buttonAnimation, {
-      toValue: 0.9,
-      duration: 100,
-      easing: Easing.inOut(Easing.ease),
-      useNativeDriver: true,
-    }).start(() => {
-      Animated.timing(buttonAnimation, {
-        toValue: 1,
-        duration: 100,
-        easing: Easing.inOut(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-    });
+    const animateButton = () => {
+    if (animationRef.current){
+      animationRef.current.play();
+    }
   };
 
   return (
@@ -83,17 +82,25 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             placeholderTextColor="#778da9"
           />
 
-          <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                animateButton();
-                handleLogin();
-              }}
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </Animated.View>
+          {loading ? (
+        <LottieView
+          ref={animationRef}
+          autoPlay
+          loop
+          style={styles.loading}  
+          source={require('./assets/loading.json')}
+        />
+      ) : (
+        <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleLogin}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+
 
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.link}>Don't have an account? Sign up</Text>

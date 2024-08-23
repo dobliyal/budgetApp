@@ -9,12 +9,13 @@ import Login from '../Screens/ScreenLogin/LoginScreen';
 import Signup from '../Screens/ScreenSignup/SignupScreen';
 import { auth } from '../Utils/firebaseauth/firebaseConfig'; 
 import { onAuthStateChanged } from 'firebase/auth';
+import ScreenOnboard from '../Screens/ScreenOnboard/ScreenOnboard';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 
 const Navigation = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); // Use null to handle loading state
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -67,6 +68,11 @@ const Navigation = () => {
             </Stack.Navigator>
           ) : (
             <AuthStack.Navigator>
+              <AuthStack.Screen
+                name="Onboard"
+                component={ScreenOnboard}
+                options={{ headerShown: false }}
+              />
               <AuthStack.Screen
                 name="Login"
                 component={Login}

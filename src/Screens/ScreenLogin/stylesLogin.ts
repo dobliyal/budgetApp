@@ -31,6 +31,11 @@ const styles = StyleSheet.create({
     marginTop: heightPercentageToDP('-8%'),
 
   },
+  loading:{
+     width: '18%', 
+     height: '18%', 
+     left:widthPercentageToDP('38%')
+  },
   input: {
     height: heightPercentageToDP('6%'),
     borderColor: '#e0e1dd',
