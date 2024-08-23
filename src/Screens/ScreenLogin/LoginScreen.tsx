@@ -18,7 +18,7 @@ import { login } from '../../Utils/firebaseauth/authService';
 import * as WebBrowser from 'expo-web-browser';
 import styles from './stylesLogin';
 import { RootStackParamList } from '../../Utils/Types/navigation';
-
+import LottieView from 'lottie-react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
