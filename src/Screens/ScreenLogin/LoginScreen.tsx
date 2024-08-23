@@ -11,15 +11,21 @@ import {
   Platform, 
   ScrollView 
 } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { login } from '../../Utils/firebaseauth/authService';
 import * as WebBrowser from 'expo-web-browser';
 import styles from './stylesLogin';
-
-
+import { RootStackParamList } from '../../Utils/Types/navigation';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -58,7 +64,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-        <Image
+          <Image
             source={require('../ScreenLogin/assets/login.png')}
             style={styles.topSvg}
           />
@@ -98,9 +104,6 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.link}>Don't have an account? Sign up</Text>
           </TouchableOpacity>
-          
-   
-         
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
