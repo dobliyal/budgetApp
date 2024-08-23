@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity, Animated, Easing, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { 
+  View, 
+  TextInput, 
+  Text, 
+  TouchableOpacity, 
+  Animated, 
+  Easing, 
+  KeyboardAvoidingView, 
+  Platform, 
+  ScrollView, 
+  Image 
+} from 'react-native';
 import { signup } from '../../Utils/firebaseauth/authService';
 import styles from './stylesSignup';
-import Ivan from '../ScreenLogin/assets/ivan';
 
 const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [name, setName] = useState<string>('');
@@ -23,7 +33,7 @@ const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const animateButton = () => {
     Animated.timing(buttonAnimation, {
-      toValue: 0.8,
+      toValue: 0.9,
       duration: 100,
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: true,
@@ -44,7 +54,10 @@ const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-        <Ivan style={styles.topSvg} />
+          <Image
+            source={require('../ScreenLogin/assets/login.png')}
+            style={styles.topSvg}
+          />
           <Text style={styles.title}>Let's Register 🖐</Text>
           {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
 
@@ -53,6 +66,7 @@ const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             value={name}
             onChangeText={setName}
             style={styles.input}
+            placeholderTextColor="#778da9"
           />
           <TextInput
             placeholder="Email"
@@ -61,6 +75,7 @@ const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             keyboardType="email-address"
             autoCapitalize="none"
             style={styles.input}
+            placeholderTextColor="#778da9"
           />
           <TextInput
             placeholder="Password"
@@ -68,6 +83,7 @@ const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             onChangeText={setPassword}
             secureTextEntry
             style={styles.input}
+            placeholderTextColor="#778da9"
           />
 
           <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
