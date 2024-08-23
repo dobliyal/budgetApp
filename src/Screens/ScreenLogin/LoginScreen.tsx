@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { 
   View, 
   TextInput, 
@@ -28,7 +28,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [buttonAnimation] = useState(new Animated.Value(1));
-
+  const [loading,setLoading]=useState<any>(null);
 
   const handleLogin = async () => {
   setLoading(true);
