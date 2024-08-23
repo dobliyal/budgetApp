@@ -13,13 +13,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: heightPercentageToDP('3%'),
     textAlign: 'center',
+    marginTop: heightPercentageToDP('2%'),
   },
   input: {
-    height: heightPercentageToDP('6%'),
+    height: heightPercentageToDP('5%'),
     borderColor: '#bde0fe',
     borderWidth: 2,
     borderRadius: widthPercentageToDP('3%'),
-    marginVertical: heightPercentageToDP('1.5%'),
+    marginVertical: heightPercentageToDP('1%'),
     paddingHorizontal: widthPercentageToDP('4%'),
     backgroundColor: '#fff',
     fontSize: widthPercentageToDP('4%'),
@@ -35,6 +36,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: heightPercentageToDP('3%'),
+  },
+  topSvg: {
+    alignSelf: 'center',
+    marginBottom: heightPercentageToDP('0%'),
+    marginRight: heightPercentageToDP('18%'),
+    marginTop: heightPercentageToDP('-7%'),
   },
   button: {
     backgroundColor: '#00b4d8',
