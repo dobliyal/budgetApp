@@ -13,8 +13,17 @@ import {
 } from 'react-native';
 import { signup } from '../../Utils/firebaseauth/authService';
 import styles from './stylesSignup';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../Utils/Types/navigation';
 
-const SignupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+type SignupScreeNavigationProps = StackNavigationProp<RootStackParamList, 'Signup'>;
+
+type SignupScreenProps = {
+  navigation: SignupScreeNavigationProps;
+};
+
+
+const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

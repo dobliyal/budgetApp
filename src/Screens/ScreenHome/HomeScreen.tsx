@@ -5,14 +5,15 @@ import { Category, Transaction } from '../../Utils/Types/types';
 import { styles } from './homeScreenStyle';
 import TransactionsList from './Components/TransactionList/TransactionsList';
 import { TransactionsByMonth } from '../../Utils/Types/types';
-import Card from '../../Components/commonCard/Card';
 import AddTransaction from './Components/AddTransaction/AddTransaction';import SummaryChart from './Components/SummaryChart/SummaryChart';
 import Transactionsummary from './Components/TransactionSummary/TransactionSummary';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import Logout from '../../../assets/Logout';
 import { logout } from '../../Utils/firebaseauth/authService';
-import { stylesButton } from './Components/AddTransaction/addTransactionStyle'
+import LogoutIcon from '../../../assets/Logologout';
+
+
+
 
 type StackParamsList = {
   Payment: { savings: number };
@@ -98,11 +99,7 @@ const HomeScreen = () => {
     
     <ScrollView style={styles.mainContainer}>
 
-      <TouchableOpacity style={styles.button} onPress={logout}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
-
-
+    <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
@@ -113,6 +110,12 @@ const HomeScreen = () => {
       >
         <Text style={styles.buttonText}>Savings</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.buttonlogout} onPress={logout}>
+        <LogoutIcon />
+      </TouchableOpacity>
+    </View>
+
 
 
       <AddTransaction insertTransaction={insertTransaction} />
