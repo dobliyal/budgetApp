@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: widthPercentageToDP('5%'),
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#feffff',
   },
   topSvg: {
     alignSelf: 'flex-start',
