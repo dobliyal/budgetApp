@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "shashanksingh1203",
     "name": "NativeFinalProject",
     "slug": "NativeFinalProject",
     "version": "1.0.0",
@@ -11,17 +12,28 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "scheme": "nativefinalproject",
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow NativeFinalProject to access your camera",
+          "microphonePermission": "Allow NativeFinalProject to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2a43f015-6e74-419d-bfc7-94121dac8207"
+      }
+    },
+    "android": {
+      "package": "com.rohitdobliyal.NativeFinalProject"
     }
   }
 }

@@ -1,0 +1,123 @@
+
+import React, { useState,useRef } from 'react';
+import { 
+  View, 
+  TextInput, 
+  Text, 
+  TouchableOpacity, 
+  Animated, 
+  Easing, 
+  Image, 
+  KeyboardAvoidingView, 
+  Platform, 
+  ScrollView 
+} from 'react-native';
+
+import { StackNavigationProp } from '@react-navigation/stack';
+import { login } from '../../Utils/firebaseauth/authService';
+import * as WebBrowser from 'expo-web-browser';
+import styles from './stylesLogin';
+import { RootStackParamList } from '../../Utils/Types/navigation';
+import LottieView from 'lottie-react-native';
+
+WebBrowser.maybeCompleteAuthSession();
+
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+
+  const animationRef=useRef<LottieView>(null);
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [buttonAnimation] = useState(new Animated.Value(1));
+  const [loading,setLoading]=useState<any>(null);
+
+  const handleLogin = async () => {
+  setLoading(true);
+    try {
+      await login(email, password);
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Login failed. Please check your credentials.');
+    }
+    finally{
+      setLoading(false);
+    }
+  };
+
+    const animateButton = () => {
+    if (animationRef.current){
+      animationRef.current.play();
+    }
+  };
+
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          <Image
+            source={require('../ScreenLogin/assets/login.png')}
+            style={styles.topSvg}
+          />
+          <Text style={styles.title}>Login to BudgetBuddy👋 </Text>
+          {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
+
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            style={styles.input}
+            placeholderTextColor="#778da9"
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+            placeholderTextColor="#778da9"
+          />
+
+          {loading ? (
+        <LottieView
+          ref={animationRef}
+          autoPlay
+          loop
+          style={styles.loading}  
+          source={require('./assets/loading.json')}
+        />
+      ) : (
+        <Animated.View style={[styles.buttonContainer, { transform: [{ scale: buttonAnimation }] }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleLogin}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+
+
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.link}>Don't have an account? Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+export default LoginScreen;
